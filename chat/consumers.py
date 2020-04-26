@@ -25,7 +25,7 @@ class ChatConsumer(WebsocketConsumer):
 
 
     def fetch_last_messages(self,data):
-        messages = Message.last_10_messages(self)
+        messages = Message.objects.last_10_messages(self.case_number)
         content = {
             "messages" :self.messages_to_json(messages),
             "command" : "messages"
@@ -35,7 +35,6 @@ class ChatConsumer(WebsocketConsumer):
     def new_message(self, data):
         author = get_object_or_404(MyUser, pk = data['from'])
         case = get_object_or_404( Case, case_number = self.case_number)
-        print(case)
         message = Message.objects.create( message=data['message'], author= author , case= case)
         content = {
             'message' : self.message_to_json(message),
