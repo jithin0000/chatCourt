@@ -41,7 +41,7 @@ class ChatConsumer(WebsocketConsumer):
             'message' : self.message_to_json(message),
             'command' : 'new_message'
         }
-        return self.send_message(content)
+        return self.send_chat_message(content)
 
     commands = {
         "fetch_messages": fetch_last_messages,
