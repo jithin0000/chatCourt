@@ -1,0 +1,21 @@
+{% extends 'lawyer/lawyer_base.html' %}
+{% load bootstrap %}
+
+{% block main-content %}
+    <div class="row">
+        <div class="col-lg-12">
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form | bootstrap }}
+                <input type="submit"   class="btn btn-success"  >
+            </form>
+        </div>
+    </div>
+
+{% endblock %}

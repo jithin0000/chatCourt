@@ -142,7 +142,7 @@
                          {% if userId == uid %} active
                         {% endif %}
                         {% endwith %}  ">
-                    <div class="wrap">
+                        <div class="wrap">
                         <span class="contact-status
                         {% with uid=case.witness.id|stringformat:"i" %}
                          {% if userId == uid %} online
@@ -168,7 +168,9 @@
             <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt=""/>
             <p>{{ user.username }}</p>
             <div class="social-media">
-                <a href="{% url 'case_update' pk=case.id %}" class="btn btn-secondary mx-3">end session</a>
+                {% if user.user_type == "Judge" %}
+                    <a href="{% url 'case_update' pk=case.id %}" class="btn btn-secondary mx-3">end session</a>
+                {% endif %}
             </div>
         </div>
         <div class="messages">
@@ -179,7 +181,7 @@
         <div class="message-input">
             <div class="wrap">
                 <input id="chat-message-input" type="text" placeholder="Write your message..."/>
-{#                <i class="fa fa-paperclip attachment" aria-hidden="true"></i>#}
+                {#                <i class="fa fa-paperclip attachment" aria-hidden="true"></i>#}
                 <button id="chat-message-submit" class="submit">
                     <i class="fa fa-paper-plane" aria-hidden="true"></i>
                 </button>
