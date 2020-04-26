@@ -199,7 +199,6 @@
     var userId = {{ userId }};
 
     const container = document.getElementById('chat-log')
-    console.log(userId)
 
     $(document).ready(function () {
         $('#chat-log').stop().animate({
@@ -249,32 +248,43 @@
         }));
 
         messageInputDom.value = '';
+
+        scrollToTop(10000)
     };
 
-    function fetchMessages() {
-        chatSocket.send(JSON.stringify(
-            {
-                'command': 'fetch_messages'
-            }));
-    }
-
-    function createMessage(data) {
-        var author = data['author'];
-        var msgListTag = document.createElement('li');
-        var imgTag = document.createElement('img');
-        var pTag = document.createElement('p');
-        pTag.textContent = data.message;
-        imgTag.src = 'http://emilcarlsson.se/assets/mikeross.png';
-
-        if (author === userId) {
-            msgListTag.className = 'sent';
-        } else {
-            msgListTag.className = 'replies';
+        function scrollToTop(scrollDuration) {
+            var scrollStep = -window.scrollY / (scrollDuration / 15),
+                scrollInterval = setInterval(function () {
+                    if (window.scrollY !== 0) {
+                        window.scrollBy(0, scrollStep);
+                    } else clearInterval(scrollInterval);
+                }, 15);
         }
-        msgListTag.appendChild(imgTag);
-        msgListTag.appendChild(pTag);
-        document.querySelector('#chat-log').appendChild(msgListTag);
-    }
+
+        function fetchMessages() {
+            chatSocket.send(JSON.stringify(
+                {
+                    'command': 'fetch_messages'
+                }));
+        }
+
+        function createMessage(data) {
+            var author = data['author'];
+            var msgListTag = document.createElement('li');
+            var imgTag = document.createElement('img');
+            var pTag = document.createElement('p');
+            pTag.textContent = data.message;
+            imgTag.src = 'http://emilcarlsson.se/assets/mikeross.png';
+
+            if (author === userId) {
+                msgListTag.className = 'sent';
+            } else {
+                msgListTag.className = 'replies';
+            }
+            msgListTag.appendChild(imgTag);
+            msgListTag.appendChild(pTag);
+            document.querySelector('#chat-log').appendChild(msgListTag);
+        }
 
 </script>
 
