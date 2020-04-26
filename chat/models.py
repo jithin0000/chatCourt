@@ -7,9 +7,8 @@ from case.models import Case
 class Message(models.Model):
     """model for chat"""
 
-    author = models.ForeignKey(MyUser, related_name="from_user", on_delete=models.CASCADE
-                               ,null=True, blank=True)
-    case = models.ForeignKey(Case, related_name="case", on_delete=models.CASCADE, null=True, blank=True)
+    author = models.ForeignKey(MyUser, related_name="from_user", on_delete=models.CASCADE)
+    case = models.ForeignKey(Case, related_name="case", on_delete=models.CASCADE)
     message = models.CharField(max_length=155)
     timestamp = models.DateTimeField(auto_now_add=True)
 

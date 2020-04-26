@@ -151,7 +151,7 @@
 
     const user = document.getElementById('user');
 
-    const userId = user.getAttribute('data-id');
+    const userId = parseInt(user.getAttribute('data-id'));
 
 
     const chatSocket = new WebSocket(
@@ -189,7 +189,7 @@
     };
 
     function createMessage(data) {
-
+        console.log(data)
         const author = data['author'];
         const message = data['message']
         const timestamp = data['timestamp']
