@@ -1,0 +1,25 @@
+{% extends 'shared/base.html' %} 
+{% block content %}
+
+<section id="lawyer_home">
+
+    <div class="sidebar">
+        <h3 class="my-3">{{request.user}}</h3>
+        <ul class="list-group mt-3">
+            <li class="list-group-item"><a href="{% url 'witness_home' %}">Home</a></li>
+            <li class="list-group-item"><a href="{% url 'witness_home' %}">Profile</a></li>
+            <li class="list-group-item"><a href="{% url 'logout' %}">Log out</a></li>
+        </ul>
+
+    </div>
+
+    <div class="main-content">
+        
+        {% block main-content %}
+        {% endblock %}
+
+    </div>
+
+</section>
+
+{% endblock %}
