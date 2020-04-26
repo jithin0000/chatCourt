@@ -168,6 +168,7 @@
             <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt=""/>
             <p>{{ user.username }}</p>
             <div class="social-media">
+                <a href="{% url 'case_update' pk=case.id %}" class="btn btn-secondary mx-3">end session</a>
             </div>
         </div>
         <div class="messages">

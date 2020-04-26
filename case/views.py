@@ -1,18 +1,25 @@
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.forms import model_to_dict
 from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404
 
 from django.views.generic.edit import UpdateView
+
+from case.forms import CaseUpdateForm
 from case.models import Case
 from customuser.models import MyUser
 # Create your views here.
 
 import json
 
-class CaseUpdateView(UpdateView):
+class CaseUpdateView(LoginRequiredMixin,UpdateView):
     """ update case """
-    pass
+    model = Case
+    form_class = CaseUpdateForm
+    template_name = 'case/case_update.html'
+    success_url = "/home"
+
 @login_required(login_url="/")
 def add_witness_to_case(request, pk):
     """ add witness to case"""

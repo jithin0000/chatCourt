@@ -1,0 +1,33 @@
+{% extends 'lawyer/lawyer_base.html' %}
+
+{% block main-content %}
+    <div class="row">
+        <div class="col-lg-12">
+            <h3>Case {{ object.case_number }}</h3>
+            <hr>
+        </div>
+    </div>
+
+    <div class="row">
+        <form method="post" >
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" class="btn btn-success">
+        </form>
+    </div>
+
+{% endblock %}
+
+{% block js %}
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
