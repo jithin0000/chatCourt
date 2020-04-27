@@ -1,0 +1,26 @@
+{% extends 'judge/judge_base.html' %}
+
+{% block main-content %}
+
+    <div class="row">
+        <div class="col-lg-12">
+            <h3>Cases</h3>
+            <hr>
+
+            {% for case in case_list %}
+                <div class="case-item">
+                    <h5 class="case-title">{{case.case_number}}</h5>
+                    <hr>
+                    <p>{{case.description}}</p>
+                    <p > Hearing : <span class="date-txt">{{case.hearing_date}}</span> </p>
+                    <hr>
+                    <p>status : <span class="status-txt">{{case.case_status}}</span> </p>
+                    <a href="{% url 'judge_case_detail' case.id %}" class="btn btn-primary"> view details</a>
+
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}
+

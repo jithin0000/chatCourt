@@ -3,6 +3,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.forms import model_to_dict
 from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404
+from django.urls import reverse
 
 from django.views.generic.edit import UpdateView
 
@@ -17,7 +18,7 @@ class CaseUpdateView(LoginRequiredMixin,UpdateView):
     model = Case
     form_class = CaseUpdateForm
     template_name = 'case/case_update.html'
-    success_url = "/home"
+
 
 @login_required(login_url="/")
 def add_witness_to_case(request, pk):

@@ -7,6 +7,7 @@ user_choices = (
         ('Lawyer', 'Lawyer'),
         ('Witness', 'Witness'),
         ('Plaintiff', 'Plaintiff'),
+        ('Judge', 'Judge'),
         )
 
 class RegistrationFrom(forms.ModelForm):

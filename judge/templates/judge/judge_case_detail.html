@@ -1,0 +1,125 @@
+{% extends 'judge/judge_base.html' %}
+
+{% block main-content %}
+    <div class="row">
+        <div class="col-lg-12">
+            <h3>Cases</h3>
+            <hr>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <h3> Case Number : {{ case.case_number }}</h3>
+            <a href="{% url 'case_update' pk=case.id %}" class="btn btn-primary mt-2">Edit case</a>
+
+            <hr>
+            <p>{{ case.description }}</p>
+
+            <p>Plaintiff : <span class="special"> {{ case.registered_by.username }} </span></p>
+
+            <hr>
+            <div class="row">
+                <div class="col-lg-12 ">
+                    <h3>Lawyers</h3>
+
+                    <div class="row">
+
+                        <div class="col-lg-6">
+                            <p style="cursor: pointer;"> Plaintif : {{ case.registered_by.username }}
+
+                                {% if request.user_type == 'Lawyer' %}
+                                    <span class="badge badge-success">chat</span>
+                                {% endif %}
+
+                            </p>
+                            <p> Lawyer : {{ case.first_lawyer.username }} </p>
+                        </div>
+                        <div class="col-lg-6">
+                            <p>Defendant: <span class="special">{{ case.defendent }}</span></p>
+                            <p>Defendent Lawyer <span class="special"> {{ case.second_lawyer.username }} </span></p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <hr>
+                    <h3>Witnesses</h3>
+                    {% for wit in case.witness.all %}
+                        <li class="list-group-item"> {{ wit.username }}  </li>
+                    {% endfor %}
+                    <li class="list-group-item">
+                        {% if user.user_type != 'Judge' %}
+                            <a href="{% url 'add_witness_to_case' pk=case.id %}" class="btn btn-primary"> add new
+                                witness </a>
+                        {% endif %}
+                    </li>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <hr>
+                    <h3>Evidence</h3>
+                    <hr>
+                    {% for ev in case.evidence_case.all %}
+                        {% if ev.owner == request.user %}
+                            <a href="{{ ev.content.url }}" class="list-group-item">{{ ev.content.url }}</a>
+                        {% endif %}
+                    {% endfor %}
+
+
+                    {% if user.user_type != 'Judge' %}
+                        <a href="{% url 'add_evidence' pk=case.id %}" class="btn btn-info mt-2" type="submit">Add new
+                            evidence</a>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <hr>
+                    <h3>Status</h3><span>{{ case.case_status }}</span>
+                    <hr>
+                    <h3>Verdict</h3>
+                    <p style="color: darkred">{{ case.verdict }}</p>
+
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <hr>
+                    <div class="float-right">
+
+                        {% if case.case_status == 'closed' %}
+                            <button class="btn btn-danger">case closed</button>
+                        {% endif %}
+                        {% if case.case_status == 'active' %}
+                            <p> Hearing on <span class="special">{{ case.hearing_date }} </span></p>
+
+                            <a href="{% url 'room' room_name=case.case_number %}" class="btn btn-success" disabled>
+                                start hearing </a>
+                        {% else %}
+                            <p> Hearing on <span class="special">{{ case.hearing_date }} </span></p>
+
+                            <button disabled href="{% url 'room' room_name=case.case_number %}" class="btn btn-success">
+                                start hearing
+                            </button>
+                        {% endif %}
+
+
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+{% endblock %}
+
