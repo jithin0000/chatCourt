@@ -7,7 +7,7 @@
         <h3 class="my-3">{{request.user}}</h3>
         <ul class="list-group mt-3">
             <li class="list-group-item"><a href="{% url 'witness_home' %}">Home</a></li>
-            <li class="list-group-item"><a href="{% url 'witness_home' %}">Profile</a></li>
+            <li class="list-group-item"><a href="{% url 'witness_profile' pk=user.id %}">Profile</a></li>
             <li class="list-group-item"><a href="{% url 'logout' %}">Log out</a></li>
         </ul>
 

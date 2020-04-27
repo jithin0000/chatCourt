@@ -19,8 +19,8 @@ class Witness(models.Model):
     phone_number = models.CharField(max_length=100)
     description = models.TextField(null=True, blank=True)
 
-    # def get_absolute_url(self):
-    #     return reverse('witness_profile', kwargs={'pk': self.user.id})
+    def get_absolute_url(self):
+        return reverse('witness_profile', kwargs={'pk': self.user.id})
 
     def __str__(self):
         return self.user.username
