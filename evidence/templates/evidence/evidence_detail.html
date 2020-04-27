@@ -1,0 +1,22 @@
+{% extends 'lawyer/lawyer_base.html' %}
+{% load bootstrap %}
+
+{% block main-content %}
+    <div class="row">
+        <div class="col-lg-12">
+            <h3>Case Number : <span>{{ evidence.case.case_number }}</span></h3>
+            <a href="{{ object.content.url }}">{{ object.content }}</a>
+
+            <a href="{% url 'evidence_delete' pk=evidence.id %}" class="btn btn-danger ml-3">remove this evidence</a>
+            <hr>
+            <h4>Go to case</h4>
+          <a href="{% url 'lawyer_case_detail' pk=evidence.case.id %}"> {{ evidence.case }}</a>
+
+        </div>
+    </div>
+
+    <div class="row">
+
+    </div>
+
+{% endblock %}

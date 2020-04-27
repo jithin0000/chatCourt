@@ -105,7 +105,9 @@
                         {% endwith %}  ">
 
                         </span>
-                        <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt=""/>
+                        <img class="profile-pic"
+                             src="{{ case.first_lawyer.lawyer_set.all.first.profile_pic.url }}"
+                             alt=""/>
                         <div class="meta">
                             <p class="name">{{ case.first_lawyer.username | capfirst }}</p>
                             <p class="preview">Plaintiff Lawyer</p>
@@ -122,7 +124,15 @@
                          {% if userId == uid %} online
                         {% endif %}
                         {% endwith %}  "></span>
-                        <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt=""/>
+
+
+                        {% if  case.second_lawyer.lawyer_set.all.first.profile_pic.url is not None %}
+                            <img src="{{ case.second_lawyer.lawyer_user.all.first.profile_pic.url }}" alt=""/>
+                        {% else %}
+                            <img src="https://via.placeholder.com/150" alt=""/>
+                        {% endif %}
+
+
                         <div class="meta">
                             <p class="name">{{ case.second_lawyer.username | capfirst }}</p>
                             <p class="preview">Defendant Lawyer</p>
@@ -167,7 +177,11 @@
     </div>
     <div class="content">
         <div class="contact-profile">
-            <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt=""/>
+            {% if  user.lawyer_set.all.first.profile_pic.url is not None %}
+                            <img src="{{ user.lawyer_set.all.first.profile_pic.url }}" alt=""/>
+                        {% else %}
+                            <img src="https://via.placeholder.com/150" alt=""/>
+                        {% endif %}
             <p>{{ user.username }}</p>
             <div class="social-media">
                 {% if user.user_type == "Judge" %}

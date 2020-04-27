@@ -1,0 +1,48 @@
+{% extends 'lawyer/lawyer_base.html' %}
+
+{% block main-content %}
+    <div class="row">
+        <div class="col-lg-12">
+            <h3>Cases</h3>
+            <a href="{% url 'create_evidence' %}" class="btn btn-primary mt-2">add new evidence</a>
+            <hr>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <table class="table ">
+                <thead>
+                <tr>
+                    <th scope="col">No</th>
+                    <th scope="col">Witness</th>
+                    <th scope="col">case</th>
+                    <th scope="col">case status</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                    {% for evid in user.evidence_owner.all %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>
+                                <a href="{{ evid.content.url }}">{{ evid.content }}</a>
+                            </td>
+                            <td>{{ evid.case.case_number }}</td>
+                            <td>{{ evid.case.case_status }}</td>
+                            <td>
+                                <a href="{% url 'evidence_detail' pk=evid.id %}" class="btn btn-primary">
+                                Edit
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+
+
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+{% endblock %}

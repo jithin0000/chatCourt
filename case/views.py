@@ -11,7 +11,6 @@ from case.models import Case
 from customuser.models import MyUser
 # Create your views here.
 
-import json
 
 class CaseUpdateView(LoginRequiredMixin,UpdateView):
     """ update case """
@@ -75,12 +74,6 @@ def ajax_delete_witness_to_case(request, pk, id):
         "isRemoved" : isRemoved,
 
     }, safe=False)
-
-
-
-
-
-
 
 
 
