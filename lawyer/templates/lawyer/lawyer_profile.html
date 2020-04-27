@@ -4,7 +4,9 @@
     <div class="row">
         <div class="col-lg-12">
             <h5>{{ user.username | capfirst }}</h5>
-            <a href="{% url 'lawyer_update_profile' pk=object.id %}">Edit profile</a>
+           {% if object.user == user %}
+                <a href="{% url 'lawyer_update_profile' pk=object.id %}">Edit profile</a>
+           {% endif %}
             <hr>
         </div>
     </div>
