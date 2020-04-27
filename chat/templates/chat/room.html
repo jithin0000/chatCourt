@@ -30,7 +30,11 @@
     <div id="sidepanel">
         <div id="profile">
             <div class="wrap">
-                <img id="profile-img" src="http://emilcarlsson.se/assets/mikeross.png" class="online" alt=""/>
+                {% if  case.judge.judge_profile.all.first.profile_pic.url is not None %}
+                    <img src="{{ case.judge.judge_profile.all.first.profile_pic.url }}" alt=""/>
+                {% else %}
+                    <img src="https://via.placeholder.com/150" alt=""/>
+                {% endif %}
                 <p>{{ case.judge | capfirst }}</p>
                 <i class="fa fa-chevron-down expand-button" aria-hidden="true"></i>
                 <div id="status-options">
@@ -92,7 +96,7 @@
                         {% endif %}
                         {% endwith %}  "></span>
 
-                         {% if  case.defendent.plaintiff_profile.all.first.profile_pic.url is not None %}
+                        {% if  case.defendent.plaintiff_profile.all.first.profile_pic.url is not None %}
                             <img src="{{ case.defendent.plaintiff_profile.all.first.profile_pic.url }}" alt=""/>
                         {% else %}
                             <img src="https://via.placeholder.com/150" alt=""/>
@@ -198,11 +202,9 @@
     </div>
     <div class="content">
         <div class="contact-profile">
-            {% if  user.lawyer_set.all.first.profile_pic.url is not None %}
-                <img src="{{ user.lawyer_set.all.first.profile_pic.url }}" alt=""/>
-            {% else %}
-                <img src="https://via.placeholder.com/150" alt=""/>
-            {% endif %}
+
+            <img src="{{ image_url }}" alt=""/>
+
             <p>{{ user.username }}</p>
             <div class="social-media">
                 {% if user.user_type == "Judge" %}

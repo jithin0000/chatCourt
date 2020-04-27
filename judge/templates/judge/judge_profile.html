@@ -1,0 +1,36 @@
+{% extends 'judge/judge_base.html' %}
+
+{% block main-content %}
+
+   <div class="row">
+        <div class="col-lg-12">
+            <h5>{{ user.username | capfirst }}</h5>
+             {% if object.user == user %}
+            <a href="{% url 'judge_update_profile' pk=object.id %}">Edit profile</a>
+           {% endif %}
+            <hr>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-6">
+            <h4>{{ user.email | upper }}</h4>
+
+            {% if object.description %}
+                <p> <span class="bold" >Description</span> : {{ object.description }}</p>
+                {% else %}
+                <p>Description : <span style="font-style: italic" > describe your self </span>  </p>
+            {% endif %}
+
+            <p>Phone number : {{ object.phone_number }}</p>
+        </div>
+    <div class="col-lg-6">
+        {% if object.profile_pic %}
+        <img width="150px" height="150px" src="{{ object.profile_pic.url }}" alt="">
+        {% else %}
+        <img width="150px" height="150px" src="https://via.placeholder.com/150" alt="">
+        {% endif %}
+    </div>
+    </div>
+{% endblock %}
+

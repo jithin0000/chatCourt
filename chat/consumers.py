@@ -66,6 +66,10 @@ class ChatConsumer(WebsocketConsumer):
         if(user_type == "Witness"):
             if message.author.witness_profile.all().first().profile_pic:
                 profile_pic = message.author.witness_profile.all().first().profile_pic.url
+        if (user_type == "Judge"):
+            if message.author.judge_profile.all().first().profile_pic:
+                profile_pic = message.author.judge_profile.all().first().profile_pic.url
+
         return {
             'author' : message.author.id,
             'profile_pic': profile_pic ,

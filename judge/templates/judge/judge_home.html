@@ -1,26 +1,41 @@
 {% extends 'judge/judge_base.html' %}
 
 {% block main-content %}
-
     <div class="row">
         <div class="col-lg-12">
             <h3>Cases</h3>
             <hr>
+        </div>
+    </div>
 
-            {% for case in case_list %}
-                <div class="case-item">
-                    <h5 class="case-title">{{case.case_number}}</h5>
-                    <hr>
-                    <p>{{case.description}}</p>
-                    <p > Hearing : <span class="date-txt">{{case.hearing_date}}</span> </p>
-                    <hr>
-                    <p>status : <span class="status-txt">{{case.case_status}}</span> </p>
-                    <a href="{% url 'judge_case_detail' case.id %}" class="btn btn-primary"> view details</a>
+    <div class="row">
+        <div class="col">
+            <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th scope="col">No</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Hearging Date</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    {% for case in case_list %}
+                    <tr>
+                        <td>{{forloop.counter}}</td>
+                        <td>{{case.case_number}}</td>
+                        <td>{{case.hearing_date}}</td>
+                        <td>{{case.case_status}}</td>
+                        <td>
+                            <a href="{% url 'judge_case_detail' case.id %}" class="btn btn-primary"> view details</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+              </table>
 
-                </div>
-            {% endfor %}
         </div>
     </div>
 
 {% endblock %}
-
