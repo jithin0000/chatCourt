@@ -55,8 +55,20 @@ class ChatConsumer(WebsocketConsumer):
 
     def message_to_json(self, message):
 
+        user_type = message.author.user_type
+        profile_pic ="https://via.placeholder.com/150"
+        if(user_type == "Lawyer"):
+            if message.author.lawyer_set.all().first().profile_pic:
+                profile_pic = message.author.lawyer_set.all().first().profile_pic.url
+        if(user_type == "Plaintiff"):
+            if message.author.plaintiff_profile.all().first().profile_pic:
+                profile_pic = message.author.plaintiff_profile.all().first().profile_pic.url
+        if(user_type == "Witness"):
+            if message.author.witness_profile.all().first().profile_pic:
+                profile_pic = message.author.witness_profile.all().first().profile_pic.url
         return {
             'author' : message.author.id,
+            'profile_pic': profile_pic ,
             'message' : message.message,
             'timestamp' : str(message.timestamp)
         }

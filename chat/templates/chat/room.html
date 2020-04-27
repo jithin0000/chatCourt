@@ -306,12 +306,14 @@
     }
 
     function createMessage(data) {
+        console.log(data)
+
         var author = data['author'];
         var msgListTag = document.createElement('li');
         var imgTag = document.createElement('img');
         var pTag = document.createElement('p');
         pTag.textContent = data.message;
-        imgTag.src = 'http://emilcarlsson.se/assets/mikeross.png';
+        imgTag.src = data['profile_pic'];
 
         if (author === userId) {
             msgListTag.className = 'sent';
