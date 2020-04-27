@@ -67,7 +67,14 @@
                         {% endif %}
                         {% endwith %}  ">
                         </span>
-                        <img src="http://emilcarlsson.se/assets/louislitt.png" alt=""/>
+
+                        {% if  case.registered_by.plaintiff_profile.all.first.profile_pic.url is not None %}
+                            <img src="{{ case.registered_by.plaintiff_profile.all.first.profile_pic.url }}" alt=""/>
+                        {% else %}
+                            <img src="https://via.placeholder.com/150" alt=""/>
+                        {% endif %}
+
+
                         <div class="meta">
                             <p class="name">{{ case.registered_by.username | capfirst }}</p>
                             <p class="preview">Plaintiff</p>
@@ -84,7 +91,13 @@
                          {% if userId == uid %} online
                         {% endif %}
                         {% endwith %}  "></span>
-                        <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt=""/>
+
+                         {% if  case.defendent.plaintiff_profile.all.first.profile_pic.url is not None %}
+                            <img src="{{ case.defendent.plaintiff_profile.all.first.profile_pic.url }}" alt=""/>
+                        {% else %}
+                            <img src="https://via.placeholder.com/150" alt=""/>
+                        {% endif %}
+
                         <div class="meta">
                             <p class="name">{{ case.defendent.username | capfirst }}</p>
                             <p class="preview">Defendant</p>
@@ -153,7 +166,15 @@
                          {% if userId == uid %} online
                         {% endif %}
                         {% endwith %}  "></span>
-                            <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt=""/>
+
+
+                            {% if witness.witness_profile.all.first.profile_pic.url is not None %}
+                                <img src="{{ witness.witness_profile.all.first.profile_pic.url }}" alt=""/>
+                            {% else %}
+                                <img src="https://via.placeholder.com/150" alt=""/>
+                            {% endif %}
+
+
                             <div class="meta">
                                 <p class="name">{{ witness.username | capfirst }}</p>
                                 <p class="preview">Witness</p>
@@ -178,10 +199,10 @@
     <div class="content">
         <div class="contact-profile">
             {% if  user.lawyer_set.all.first.profile_pic.url is not None %}
-                            <img src="{{ user.lawyer_set.all.first.profile_pic.url }}" alt=""/>
-                        {% else %}
-                            <img src="https://via.placeholder.com/150" alt=""/>
-                        {% endif %}
+                <img src="{{ user.lawyer_set.all.first.profile_pic.url }}" alt=""/>
+            {% else %}
+                <img src="https://via.placeholder.com/150" alt=""/>
+            {% endif %}
             <p>{{ user.username }}</p>
             <div class="social-media">
                 {% if user.user_type == "Judge" %}
