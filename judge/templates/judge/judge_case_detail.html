@@ -66,7 +66,7 @@
                     <h3>Evidence</h3>
                     <hr>
                     {% for ev in case.evidence_case.all %}
-                        {% if ev.owner == request.user %}
+                        {% if ev.owner == request.user or case.judge %}
                             <a href="{{ ev.content.url }}" class="list-group-item">{{ ev.content.url }}</a>
                         {% endif %}
                     {% endfor %}
