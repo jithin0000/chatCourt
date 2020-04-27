@@ -46,12 +46,7 @@
                     </ul>
                 </div>
                 <div id="expanded">
-                    <label for="twitter"><i class="fa fa-facebook fa-fw" aria-hidden="true"></i></label>
-                    <input name="twitter" type="text" value="mikeross"/>
-                    <label for="twitter"><i class="fa fa-twitter fa-fw" aria-hidden="true"></i></label>
-                    <input name="twitter" type="text" value="ross81"/>
-                    <label for="twitter"><i class="fa fa-instagram fa-fw" aria-hidden="true"></i></label>
-                    <input name="twitter" type="text" value="mike.ross"/>
+
                 </div>
             </div>
         </div>
@@ -157,6 +152,13 @@
                     </li>
                 {% endfor %}
 
+                <h6>Evidence</h6>
+                {% for ev in case.evidence_case.all %}
+                    {% if ev.owner == user or user.user_type == 'Judge' %}
+                        <a href="{{ ev.content.url }}" class="list-group-item">{{ ev.content.url }}</a>
+                    {% endif %}
+                {% endfor %}
+
 
             </ul>
         </div>
@@ -252,39 +254,39 @@
         scrollToTop(10000)
     };
 
-        function scrollToTop(scrollDuration) {
-            var scrollStep = -window.scrollY / (scrollDuration / 15),
-                scrollInterval = setInterval(function () {
-                    if (window.scrollY !== 0) {
-                        window.scrollBy(0, scrollStep);
-                    } else clearInterval(scrollInterval);
-                }, 15);
-        }
+    function scrollToTop(scrollDuration) {
+        var scrollStep = -window.scrollY / (scrollDuration / 15),
+            scrollInterval = setInterval(function () {
+                if (window.scrollY !== 0) {
+                    window.scrollBy(0, scrollStep);
+                } else clearInterval(scrollInterval);
+            }, 15);
+    }
 
-        function fetchMessages() {
-            chatSocket.send(JSON.stringify(
-                {
-                    'command': 'fetch_messages'
-                }));
-        }
+    function fetchMessages() {
+        chatSocket.send(JSON.stringify(
+            {
+                'command': 'fetch_messages'
+            }));
+    }
 
-        function createMessage(data) {
-            var author = data['author'];
-            var msgListTag = document.createElement('li');
-            var imgTag = document.createElement('img');
-            var pTag = document.createElement('p');
-            pTag.textContent = data.message;
-            imgTag.src = 'http://emilcarlsson.se/assets/mikeross.png';
+    function createMessage(data) {
+        var author = data['author'];
+        var msgListTag = document.createElement('li');
+        var imgTag = document.createElement('img');
+        var pTag = document.createElement('p');
+        pTag.textContent = data.message;
+        imgTag.src = 'http://emilcarlsson.se/assets/mikeross.png';
 
-            if (author === userId) {
-                msgListTag.className = 'sent';
-            } else {
-                msgListTag.className = 'replies';
-            }
-            msgListTag.appendChild(imgTag);
-            msgListTag.appendChild(pTag);
-            document.querySelector('#chat-log').appendChild(msgListTag);
+        if (author === userId) {
+            msgListTag.className = 'sent';
+        } else {
+            msgListTag.className = 'replies';
         }
+        msgListTag.appendChild(imgTag);
+        msgListTag.appendChild(pTag);
+        document.querySelector('#chat-log').appendChild(msgListTag);
+    }
 
 </script>
 
