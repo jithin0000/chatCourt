@@ -122,9 +122,12 @@
                         {% endwith %}  ">
 
                         </span>
-                        <img class="profile-pic"
-                             src="{{ case.first_lawyer.lawyer_set.all.first.profile_pic.url }}"
-                             alt=""/>
+                       {% if  case.first_lawyer.lawyer_set.all.first.profile_pic.url is not None %}
+                            <img src="{{ case.first_lawyer.lawyer_set.all.first.profile_pic.url }}" alt=""/>
+                        {% else %}
+                            <img src="https://via.placeholder.com/150" alt=""/>
+                        {% endif %}
+
                         <div class="meta">
                             <p class="name">{{ case.first_lawyer.username | capfirst }}</p>
                             <p class="preview">Plaintiff Lawyer</p>
@@ -144,10 +147,11 @@
 
 
                         {% if  case.second_lawyer.lawyer_set.all.first.profile_pic.url is not None %}
-                            <img src="{{ case.second_lawyer.lawyer_user.all.first.profile_pic.url }}" alt=""/>
+                            <img src="{{ case.second_lawyer.lawyer_set.all.first.profile_pic.url }}" alt=""/>
                         {% else %}
                             <img src="https://via.placeholder.com/150" alt=""/>
                         {% endif %}
+
 
 
                         <div class="meta">
@@ -190,7 +194,7 @@
                 <h6>Evidence</h6>
                 {% for ev in case.evidence_case.all %}
                     {% if ev.owner == user or user.user_type == 'Judge' %}
-                        <a href="{{ ev.content.url }}" class="list-group-item">{{ ev.content.url }}</a>
+                        <a href="{{ ev.content.url }}" target="_blank" class="list-group-item">{{ ev.content.url }}</a>
                     {% endif %}
                 {% endfor %}
 
@@ -308,7 +312,6 @@
     }
 
     function createMessage(data) {
-        console.log(data)
 
         var author = data['author'];
         var msgListTag = document.createElement('li');
